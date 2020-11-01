@@ -1,17 +1,24 @@
+require 'pry'
 
-class EmailParser
+class EmailAddressParser
 
-    attr_accessor :emails
-  
-    def initialize(emails)
-      @emails = emails
+    attr_accessor :email_addresses
+
+    def initialize(email_addresses)
+        @email_addresses = email_addresses
     end
-  
+
+    # binding.pry
     def parse
-      # split into an array using the regex of "possible comma followed by white space"
-      # select from the array only those emails that are not blank spaces
-      # select only those unique emails
-      emails.split(/[,?\s]/).select{|email| email != ""}.uniq 
+        # if @email_addresses.include?(",")
+        #     @email_addresses.split(", ").uniq
+        # else
+        #     @email_addresses.split(" ").uniq
+        # end
+        @email_addresses.split(" ").map{|element| element.delete_suffix(",")}.uniq
+        # splitting by " ", and then mapping through the array,
+        # if any element ends with "," delete the comma
+        # return only uniq elements
+
     end
-  
-  end
+end
